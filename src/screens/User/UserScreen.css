@@ -1,0 +1,27 @@
+.user-profile {
+  width: 350px;
+  height: 600px;
+  padding: 40px 10px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #111111;
+  border-radius: 40px;
+}
+.user-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+.bio {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
