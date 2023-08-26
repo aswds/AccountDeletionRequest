@@ -1,8 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
+import { RouteObject, createBrowserRouter } from "react-router-dom";
 import AccountDeletion from "../../screens/AccountDeletion/AccountDeletion";
 import User from "../../screens/User/User";
+import PageNotFound from "../../screens/404/PageNotFound";
 
-const routes = [
+const routes: RouteObject[] = [
   {
     path: "/",
     element: <AccountDeletion />,
@@ -11,8 +12,12 @@ const routes = [
     path: "/user",
     element: <User />,
   },
+  {
+    path: "*",
+    element: <PageNotFound />,
+  },
 ];
 
 export const router = createBrowserRouter(routes, {
-  basename: import.meta.env.DEV ? "/" : "/AccountDeletionRequest/",
+  basename: import.meta.env.DEV ? "/" : "/AccountDeletionRequest",
 });

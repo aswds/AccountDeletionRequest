@@ -19,7 +19,55 @@ const AccountDeletion: React.FC = ({}) => {
   const [_showModal, setShowModal] = useState<boolean>(false);
   const { fetch_user } = useAction();
   const navigate = useNavigate();
-
+  interface Styles {
+    [key: string]: React.CSSProperties;
+  }
+  const styles: Styles = {
+    loginContainer: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    contentContainer: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    logoContainer: {
+      // Add your logoContainer styles here
+    },
+    inputContainer: {
+      display: "flex",
+      flexDirection: "column",
+      width: 400,
+      height: 200,
+      alignSelf: "center",
+      alignItems: "center",
+      justifyContent: "space-evenly",
+      marginBlock: "5%",
+    },
+    input: {
+      width: "100%",
+      borderRadius: 20,
+    },
+    passwordInput: {
+      width: "30%",
+      borderRadius: 20,
+      borderWidth: 2,
+      borderColor: "red",
+    },
+    errorMsgText: {
+      textAlign: "left",
+      fontWeight: 400,
+      color: colors.accentColor,
+    },
+    button: {
+      width: 400,
+      borderRadius: 20,
+      height: 50,
+    },
+  };
   const iconSize = 25;
 
   const PasswordIcon = (
@@ -41,22 +89,9 @@ const AccountDeletion: React.FC = ({}) => {
   );
 
   return (
-    <div
-      className="loginContainer"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          flexDirection: "column",
-        }}
-      >
-        <Text>Account deletion</Text>
+    <div className="loginContainer" style={styles.loginContainer}>
+      <div style={styles.contentContainer}>
+        <Text style={{ textAlign: "center" }}>Account deletion</Text>
         <Text style={{ fontSize: 15, textAlign: "center" }}>
           We are sorry that you are leaving us
         </Text>
@@ -65,27 +100,13 @@ const AccountDeletion: React.FC = ({}) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: 400,
-          height: 200,
-          alignSelf: "center",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          marginBlock: "5%",
-        }}
-      >
+      <div style={styles.inputContainer}>
         <Input
           onChange={(e) => {
             setUserLogin(e.target.value);
             setEmail({ errorMsg: "", isValid: true });
           }}
-          style={{
-            width: "100%",
-            borderRadius: 20,
-          }}
+          style={styles.input}
           isValid={email.isValid}
           placeholder="Email"
           defaultValue={userLogin}
@@ -97,24 +118,12 @@ const AccountDeletion: React.FC = ({}) => {
             setUserPassword(e.target.value);
             setPassword({ errorMsg: "", isValid: true });
           }}
-          style={{
-            width: "30%",
-            borderRadius: 20,
-            borderWidth: !password.isValid ? 0 : 2,
-            borderColor: "red",
-          }}
+          style={styles.passwordInput}
           isValid={password.isValid}
           placeholder="Password"
           icon={PasswordIcon}
         />
-        <Text
-          size={15}
-          style={{
-            textAlign: "left",
-            fontWeight: 400,
-            color: colors.accentColor,
-          }}
-        >
+        <Text size={15} style={styles.errorMsgText}>
           {errorMsg}
         </Text>
       </div>
@@ -132,7 +141,7 @@ const AccountDeletion: React.FC = ({}) => {
             fetch_user();
           });
         }}
-        style={{ width: 400, borderRadius: 20, height: 50 }}
+        style={styles.button}
       >
         Continue
       </button>
