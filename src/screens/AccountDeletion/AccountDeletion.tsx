@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { FaFontAwesome as FontAwesome } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Make sure to import the appropriate icons
-import { user_signIn } from "./userSignIn.js";
-import { styles } from "./styles.js";
-import { colors } from "../../colors/colors.js";
-import Logo from "../../components/Logo.js";
 import { HiOutlineMail } from "react-icons/hi";
-import Input from "../../components/Input/Input.js";
-import Text from "../../components/Text.js";
 import { useNavigate } from "react-router-dom";
+import { colors } from "../../colors/colors.js";
+import Input from "../../components/Input/Input.js";
+import Logo from "../../components/Logo.js";
+import Text from "../../components/Text.js";
 import { useAction } from "../../hooks/useAction.js";
+import { styles } from "./styles.js";
+import { user_signIn } from "./userSignIn.js";
 const AccountDeletion: React.FC = ({}) => {
   const [email, setEmail] = useState({ isValid: true, errorMsg: "" });
   const [password, setPassword] = useState({ isValid: true, errorMsg: "" });
@@ -19,21 +18,10 @@ const AccountDeletion: React.FC = ({}) => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
   const [_showModal, setShowModal] = useState<boolean>(false);
   const { fetch_user } = useAction();
-  const [showLoader, setShowLoader] = useState<boolean>(false);
   const navigate = useNavigate();
-  const _hideModal = () => {
-    setShowModal(false);
-  };
-
-  const _clearMsg = () => {
-    setErrorMsg("");
-  };
 
   const iconSize = 25;
 
-  const UserIcon = (
-    <FontAwesome name="user-o" size={iconSize} color={colors.iconColor} />
-  );
   const PasswordIcon = (
     <>
       {showPassword ? (
@@ -53,16 +41,6 @@ const AccountDeletion: React.FC = ({}) => {
   );
 
   return (
-    // <div
-    //   style={{
-    //     flex: 1,
-    //     height: "100%",
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //   }}
-    // >
     <div
       className="loginContainer"
       style={{
@@ -159,8 +137,6 @@ const AccountDeletion: React.FC = ({}) => {
         Continue
       </button>
     </div>
-
-    // </div>
   );
 };
 
