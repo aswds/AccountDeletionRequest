@@ -1,5 +1,6 @@
 {
   "name": "deletionaccountrequest",
+  "homepage": "https://aswds.github.io/AccountDeletionRequest/",
   "private": false,
   "version": "0.0.0",
   "type": "module",
