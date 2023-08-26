@@ -13,8 +13,8 @@ dist-ssr
 *.local
 *.env
 
-src/screens/User/PasswordModal/delete*.*
-src/screens/User/PasswordModal/leave*.*
+# src/screens/User/PasswordModal/delete*.*
+# src/screens/User/PasswordModal/leave*.*
 
 
 # Editor directories and files
