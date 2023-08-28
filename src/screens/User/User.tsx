@@ -10,6 +10,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import _ from "lodash";
 import { useAction } from "../../hooks/useAction";
 import { auth } from "../../firebase";
+import SomethingWentWrong from "./SomethingWentWrong";
 export default function User() {
   const { fetch_user } = useAction();
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
@@ -40,12 +41,7 @@ export default function User() {
   if (error && error !== "user-not-found") {
     return <SomethingWentWrong />;
   }
-  if (isLoading) {
-    <div style={styles.container}>
-      <Loader color={colors.accentColor} />
-      <h2>Loading user data...</h2>
-    </div>;
-  }
+
   onAuthStateChanged(auth, function (user) {
     if (user != null) {
       setIsSignedIn(true);
@@ -56,10 +52,13 @@ export default function User() {
 
   return (
     <div className="user-page">
-      {!_.isEmpty(current_user) && isSignedIn ? (
+      {!_.isEmpty(current_user) && isSignedIn && !isLoading ? (
         <UserScreen user={current_user} />
       ) : (
-        <UserNotFound />
+        <div style={styles.container}>
+          <Loader color={colors.accentColor} />
+          <h2>Loading user data...</h2>
+        </div>
       )}
     </div>
   );
