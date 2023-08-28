@@ -33,8 +33,10 @@ const AccountDeletion: React.FC = ({}) => {
     contentContainer: {
       flexDirection: "column",
       alignItems: "center",
+      justifyContent: "space-around",
     },
     logoContainer: {
+      marginTop: 20,
       // Add your logoContainer styles here
     },
     inputContainer: {
@@ -67,6 +69,11 @@ const AccountDeletion: React.FC = ({}) => {
       borderRadius: 20,
       height: 50,
     },
+    textStyle: {
+      textAlign: "center",
+      fontSize: "2.5em",
+      color: colors.text,
+    },
   };
   const iconSize = 25;
 
@@ -91,10 +98,6 @@ const AccountDeletion: React.FC = ({}) => {
   return (
     <div className="loginContainer" style={styles.loginContainer}>
       <div style={styles.contentContainer}>
-        <Text style={{ textAlign: "center" }}>Account deletion</Text>
-        <Text style={{ fontSize: 15, textAlign: "center" }}>
-          We are sorry that you are leaving us
-        </Text>
         <div className="logoContainer" style={styles.logoContainer}>
           <Logo />
         </div>
@@ -127,6 +130,7 @@ const AccountDeletion: React.FC = ({}) => {
           {errorMsg}
         </Text>
       </div>
+
       <button
         onClick={async () => {
           await user_signIn(

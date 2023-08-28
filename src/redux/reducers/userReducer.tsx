@@ -1,10 +1,11 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../types/user";
 import { fetch_user } from "../actions/userActions";
+import { FirebaseError } from "firebase/app";
 
 interface IState {
   isLoading: boolean;
-  error: null | string;
+  error: null | string | "user-not-found";
   current_user: IUser;
 }
 
@@ -31,6 +32,12 @@ const userSlice = createSlice({
       (state, action: PayloadAction<IUser>) => {
         state.current_user = { ...state.current_user, ...action.payload };
         state.isLoading = false;
+      }
+    );
+    builder.addCase(
+      fetch_user.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.error = action.payload;
       }
     );
   },

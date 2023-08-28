@@ -26,11 +26,19 @@ export default function User() {
   useEffect(() => {
     fetch_user();
   }, []);
-  const { current_user, isLoading } = useTypedSelector(
+  const { current_user, isLoading, error } = useTypedSelector(
     (state) => state.user_state
   );
-  if (_.isEmpty(current_user) && !isSignedIn && !isLoading) {
+  if (
+    _.isEmpty(current_user) &&
+    !isSignedIn &&
+    !isLoading &&
+    error === "user-not-found"
+  ) {
     return <UserNotFound />;
+  }
+  if (error && error !== "user-not-found") {
+    return <SomethingWentWrong />;
   }
   if (isLoading) {
     <div style={styles.container}>
@@ -48,13 +56,10 @@ export default function User() {
 
   return (
     <div className="user-page">
-      {!_.isEmpty(current_user) && isSignedIn && !isLoading ? (
+      {!_.isEmpty(current_user) && isSignedIn ? (
         <UserScreen user={current_user} />
       ) : (
-        <div style={styles.container}>
-          <Loader color={colors.accentColor} />
-          <h2>Loading user data...</h2>
-        </div>
+        <UserNotFound />
       )}
     </div>
   );
