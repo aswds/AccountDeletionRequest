@@ -7,8 +7,12 @@ import "./UserScreen.css";
 import PasswordModal from "./PasswordModal/PasswordModal";
 import { fetch_user } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import LogOutModal from "./LogOut";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 export default function UserScreen({ user }: { user: IUser }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
   const date = new Date(user.createdAt?.toString());
   const [isPasswordModalOpen, setIsPassModalOpen] = useState<boolean>(false);
   useEffect(() => {
@@ -56,6 +60,16 @@ export default function UserScreen({ user }: { user: IUser }) {
         <p>Verified Email: {user.verifiedEmail ? "Yes" : "No"}</p>
         <p>Joined: {date.toDateString() || "No information"}</p>
         <button onClick={() => setIsOpen(true)}>Delete account</button>
+        <div
+          onClick={() => setIsLogoutOpen(true)}
+          style={{
+            marginTop: "5%",
+            color: colors.accentColor,
+            cursor: "pointer",
+          }}
+        >
+          Log out
+        </div>
       </div>
       <DeleteAccountModal
         isOpen={isOpen}
@@ -70,6 +84,15 @@ export default function UserScreen({ user }: { user: IUser }) {
         isOpen={isPasswordModalOpen}
         onClose={() => {
           setIsPassModalOpen(false);
+        }}
+      />
+      <LogOutModal
+        isOpen={isLogoutOpen}
+        onClose={() => {
+          setIsLogoutOpen(false);
+        }}
+        onLogOut={async () => {
+          await signOut(auth);
         }}
       />
     </div>

@@ -9,6 +9,7 @@ export const fetch_user = createAsyncThunk(
   async (): Promise<IUser> => {
     const db = getFirestore();
     return new Promise((resolve, reject) => {
+      console.log(auth.currentUser?.uid);
       const docRef = doc(db, `USERS/${auth.currentUser?.uid}`);
       onSnapshot(
         docRef,

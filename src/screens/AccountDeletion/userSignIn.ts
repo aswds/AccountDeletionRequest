@@ -12,7 +12,7 @@ export async function user_signIn(
 ) {
   await signInWithEmailAndPassword(auth, email, password)
     .then(() => {
-      navigate("user");
+      navigate("/user", { replace: true });
     })
     .catch(async (error) => {
       await error_handle({

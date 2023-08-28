@@ -1,16 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { router } from "./router";
-import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./redux";
-import ErrorBoundary from "./screens/404/ErrorBoundary";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import AccountDeletion from "./screens/AccountDeletion/AccountDeletion";
 import PageNotFound from "./screens/404/PageNotFound";
+import User from "./screens/User/User";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<AccountDeletion />} />
+          <Route path="*" element={<PageNotFound />} />
+          <Route path="/user" element={<User />} />
+        </Routes>
+      </HashRouter>
     </Provider>
   </React.StrictMode>
 );

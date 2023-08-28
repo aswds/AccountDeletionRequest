@@ -141,9 +141,7 @@ const AccountDeletion: React.FC = ({}) => {
             userLogin,
             userPassword,
             navigate
-          ).then(() => {
-            fetch_user();
-          });
+          );
         }}
         style={styles.button}
       >

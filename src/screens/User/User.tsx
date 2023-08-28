@@ -1,7 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { IUser } from "../../types/user";
+import { useEffect, useState } from "react";
 import UserNotFound from "./UserNotFound";
 import UserScreen from "./UserScreen";
 import { LineWave as Loader } from "react-loader-spinner";
@@ -11,8 +9,10 @@ import _ from "lodash";
 import { useAction } from "../../hooks/useAction";
 import { auth } from "../../firebase";
 import SomethingWentWrong from "./SomethingWentWrong";
+import { useNavigate } from "react-router-dom";
 export default function User() {
   const { fetch_user } = useAction();
+  const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const styles = {
     container: {
@@ -26,7 +26,7 @@ export default function User() {
   };
   useEffect(() => {
     fetch_user();
-  }, []);
+  }, [isSignedIn]);
   const { current_user, isLoading, error } = useTypedSelector(
     (state) => state.user_state
   );
@@ -46,10 +46,9 @@ export default function User() {
     if (user != null) {
       setIsSignedIn(true);
     } else {
-      setIsSignedIn(false);
+      navigate("/");
     }
   });
-
   return (
     <div className="user-page">
       {!_.isEmpty(current_user) && isSignedIn && !isLoading ? (
